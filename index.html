@@ -3,280 +3,232 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dmytro Kravets - Unity / C# Game Developer</title>
+<title>Dmytro Kravets – Unity / C# Gameplay Programmer</title>
+<meta name="description" content="Gameplay programmer: Unity, C#, multiplayer, procedural animation and enemy AI. Three playable prototypes with video.">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script>
 tailwind.config={theme:{extend:{colors:{ink:'#2F2A27',brown:'#4C4541',gold:'#F2C46A',sage:'#AEAC78',cream:'#FCF0DA'}}}}
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style type="text/tailwindcss">
+  @layer components {
+    .chip { @apply rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-xs text-gold; }
+    .clip { @apply aspect-video w-full cursor-zoom-in rounded-lg bg-ink object-contain shadow-md shadow-black/40; }
+    .cap  { @apply mt-2 text-base leading-snug text-cream/80; }
+    .cap b { @apply font-semibold text-cream; }
+    .card { @apply mb-12 scroll-mt-24 rounded-xl border border-sage/30 bg-brown p-4 shadow-lg shadow-black/30 sm:p-7; }
+    .h4   { @apply mb-3 mt-9 text-lg font-semibold text-gold; }
+    code  { @apply rounded bg-ink px-1.5 py-0.5 font-mono text-sm text-gold; }
+  }
   body { font-family: 'Inter', system-ui, sans-serif; }
   dialog::backdrop { background: rgba(0,0,0,.85); }
-  video[data-clip] { cursor: zoom-in; }
-  /* Text column: comfortable line length (~65 characters) */
-  .measure { max-width: 66ch; }
+  a:focus-visible, button:focus-visible, summary:focus-visible, video:focus-visible { outline: 2px solid #F2C46A; outline-offset: 2px; }
+  summary { list-style: none; } summary::-webkit-details-marker { display: none; }
+  details[open] .chev { transform: rotate(90deg); }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
 </head>
 <body class="bg-ink text-cream/90 antialiased">
 
-<!-- ================= HEADER ================= -->
-<header class="sticky top-0 z-10 border-b border-gold/30 bg-ink/95">
-  <div class="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 px-5 py-3">
-    <div>
-      <h1 class="text-lg font-bold text-gold">Dmytro Kravets</h1>
-      <p class="text-sm text-sage">Gameplay Programmer</p>
-    </div>
-    <nav class="flex flex-wrap items-center gap-2 text-sm">
+<!-- ================= HEADER (compact; sticky only on larger screens) ================= -->
+<header class="border-b border-gold/30 bg-ink/95 sm:sticky sm:top-0 sm:z-10 sm:backdrop-blur">
+  <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:px-5">
+    <p class="text-lg font-bold text-gold">Dmytro Kravets</p>
+    <nav class="flex flex-wrap items-center gap-2 text-sm" aria-label="Contact">
       <a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="rounded-md bg-gold px-3 py-1.5 font-semibold text-ink hover:bg-cream">Resume (PDF)</a>
-      <a href="https://github.com/krvtss" target="_blank" rel="noopener noreferrer" class="rounded-md border border-sage/60 px-3 py-1.5 text-cream hover:bg-brown">GitHub</a>
-      <a href="https://www.linkedin.com/in/dmytro-kravets-761656398/" target="_blank" rel="noopener noreferrer" class="rounded-md border border-sage/60 px-3 py-1.5 text-cream hover:bg-brown">LinkedIn</a>
+      <a href="https://github.com/krvtss" target="_blank" rel="noopener noreferrer" class="rounded-md border border-sage/60 px-3 py-1.5 hover:bg-brown">GitHub</a>
+      <a href="https://www.linkedin.com/in/dmytro-kravets-761656398/" target="_blank" rel="noopener noreferrer" class="rounded-md border border-sage/60 px-3 py-1.5 hover:bg-brown">LinkedIn</a>
       <div class="flex items-center gap-2 rounded-md border border-sage/40 bg-brown/60 px-3 py-1.5 text-cream">
         <span class="select-all font-mono text-xs sm:text-sm">hoistalekrew@gmail.com</span>
-        <button type="button" onclick="copyEmail('hoistalekrew@gmail.com', this)" class="border-l border-sage/40 pl-2 text-xs font-semibold text-gold hover:text-cream">
-          Copy
-        </button>
+        <button type="button" onclick="copyEmail('hoistalekrew@gmail.com', this)" class="border-l border-sage/40 pl-2 text-xs font-semibold text-gold hover:text-cream">Copy</button>
       </div>
     </nav>
   </div>
 </header>
 
-<main class="mx-auto max-w-4xl px-4 py-10 sm:px-5 sm:py-12">
+<main class="mx-auto max-w-5xl px-4 pb-10 pt-8 sm:px-5 sm:pt-12">
 
-<!--<h2 class="mb-8 text-sm font-semibold uppercase tracking-widest text-gold">Featured Projects</h2>-->
+<!-- ================= HERO: who, what, proof, where to look ================= -->
+<section class="mb-12">
+  <h1 class="text-3xl font-extrabold leading-tight text-cream sm:text-5xl">Unity / C# Gameplay Programmer</h1>
+  <p class="mt-3 max-w-2xl text-lg leading-relaxed text-cream/85 sm:text-xl"></p>
+<!--  <div class="mt-6 grid gap-3 sm:grid-cols-3">-->
+<!--    <a href="#coop" class="rounded-lg border border-sage/40 bg-brown p-4 hover:border-gold">-->
+<!--      <span class="block font-semibold text-gold">2-player co-op puzzle</span>-->
+<!--      <span class="mt-1 block text-sm text-cream/75">Netcode, lobby, procedural animation</span>-->
+<!--    </a>-->
+<!--    <a href="#roguelike" class="rounded-lg border border-sage/40 bg-brown p-4 hover:border-gold">-->
+<!--      <span class="block font-semibold text-gold">2.5D action roguelike</span>-->
+<!--      <span class="mt-1 block text-sm text-cream/75">Enemy AI, 3D inventory, audio system</span>-->
+<!--    </a>-->
+<!--    <a href="#sandbox" class="rounded-lg border border-sage/40 bg-brown p-4 hover:border-gold">-->
+<!--      <span class="block font-semibold text-gold">4-player physics sandbox</span>-->
+<!--      <span class="mt-1 block text-sm text-cream/75">Networked Rigidbodies, rigging</span>-->
+<!--    </a>-->
+<!--  </div>-->
+</section>
 
 <!-- ================= PROJECT 1 ================= -->
-<article class="mb-14 rounded-xl border border-sage/30 bg-brown p-5 shadow-lg shadow-black/30 sm:p-8">
-  <h3 class="text-center text-2xl font-bold text-cream">2D Co-op Puzzle Adventure (2-Player Multiplayer)</h3>
-  <div class="mt-3 flex flex-wrap justify-center gap-2 text-xs">
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Unity</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">C#</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Netcode / Multiplayer</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Cinemachine</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Procedural Animation</span>
-  </div>
-  <p class="measure mx-auto mt-4 leading-relaxed text-cream/90"></p>
+<article id="coop" class="card">
+  <h2 class="text-2xl font-bold text-cream sm:text-3xl">Bear It</h2>
+  <p class="mt-1 text-cream/75">Co-op puzzle adventure game you go through with a friend</p>
+  <div class="mt-3 flex flex-wrap gap-2"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">Netcode</span><span class="chip">Cinemachine</span><span class="chip">Procedural animation</span></div>
 
-  <!-- Video Header: Project Title as uppercase section header -->
-  <h4 class="mt-10 text-xl font-semibold uppercase tracking-widest text-cream">Procedural animation</h4>
-
-  <!-- 2x2 grid of loops (single column on phones) -->
-  <div class="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
-    <figure>
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Bandcamp(1).webm" type="video/webm">
-      </video>
-    </figure>
-    <figure>
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Rock%20Jump.webm" type="video/webm">
-      </video>
-    </figure>
-    <figure>
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Balcony(1).webm" type="video/webm">
-      </video>
-    </figure>
-    <figure>
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Truck%20Ride.webm" type="video/webm">
-      </video>
-    </figure>
+  <h3 class="h4 !mt-7">Procedural animation</h3>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Procedural animation clip 1" class="clip"><source src="Bandcamp(1).webm" type="video/webm"></video>
+    <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Procedural animation clip 2" class="clip"><source src="Rock%20Jump.webm" type="video/webm"></video>
+    <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Procedural animation clip 3" class="clip"><source src="Balcony(1).webm" type="video/webm"></video>
+    <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Procedural animation clip 4" class="clip"><source src="Truck%20Ride.webm" type="video/webm"></video>
   </div>
 
-    <!-- Dialogue interaction: video + short "what you're seeing" guide, side by side -->
-  <h4 class="mt-10 text-xl font-semibold uppercase tracking-widest text-cream">Dialogue interaction</h4>
-
-  <div class="mt-3 grid items-center gap-4 sm:grid-cols-5">
-    <figure class="sm:col-span-3">
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Sky%20Stadium.webm" type="video/webm">
-      </video>
-    </figure>
-
-    <div class="space-y-3 text-sm leading-relaxed text-cream/80 sm:col-span-2">
-      <p>
-        Created <code class="rounded bg-ink px-1.5 py-0.5 font-mono text-xs text-gold">IInteractable</code> interface class for dialogues, opening doors, junk on the ground etc.
-      </p>
-          <span style="display: inline-block; width: 30px;"></span>
-      <p>
-        Applied <code class="rounded bg-ink px-1.5 py-0.5 font-mono text-xs text-gold">Yarn Spinner</code> as a base for dialogue writing:
-      </p>
-            <ul class="mt-2 list-disc space-y-1.5 pl-4 marker:text-gold">
-        <li>Synced for co-op between both players</li>
-        <li>Prevents players from simultaneously talking to the same NPC</li>
-        <li>Specific dialogues require both players to be present</li>
+  <h3 class="h4">Dialogue interaction</h3>
+  <div class="grid items-center gap-5 lg:grid-cols-5">
+    <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Dialogue interaction clip" class="clip lg:col-span-3"><source src="Sky%20Stadium.webm" type="video/webm"></video>
+    <div class="space-y-3 leading-relaxed text-cream/85 lg:col-span-2">
+      <p>Built on <code>Yarn Spinner</code> and synced between both players:</p>
+      <ul class="list-disc space-y-1.5 pl-5 marker:text-gold">
+        <li>Two players can't talk to the same NPC at once</li>
+                <li>NPC responses are shown for another player</li>
+        <li>Some dialogues need both players present</li>
       </ul>
     </div>
   </div>
 
-  <h4 class="mt-10 text-sm font-semibold uppercase tracking-widest text-gold">Systems Engineered</h4>
-  <ul class="measure mt-3 list-disc space-y-4 pl-5 leading-relaxed marker:text-gold">
-    <li><strong class="text-gold">Lobby &amp; Session Management:</strong> Built a multiplayer lobby system with live room listing, connection state tracking, and graceful error handling for dropped connections or failed joins.</li>
-    <li><strong class="text-gold">Layered 2D Procedural Animation:</strong> Programmed a procedural character controller that blends base locomotion (walking, jumping) with upper-body state overrides, allowing players to carry boxes overhead or grab and climb ladders dynamically without rigid sprite sheets.</li>
-    <li><strong class="text-gold">Bounded Dynamic Camera (Cinemachine):</strong> Configured a custom Cinemachine workflow using 2D Confiners. Smoothly tracks player movement, interpolates through scripted focal points to frame level hazards, and shifts focus during active dialogue while strictly respecting world boundary colliders.</li>
-    <li><strong class="text-gold">Unified Point-and-Click Interaction Architecture:</strong> Designed a modular interaction interface (<code class="rounded bg-ink px-1 text-sm text-gold">IInteractable</code>) that handles screen-space clicks across all interactive entities, including ground loot, dialogue NPCs, doors, and mechanical buttons, through a single decoupled raycast system.</li>
-  </ul>
+    <h3 class="h4">Camera bounds</h3>
+  <div class="grid items-center gap-5 lg:grid-cols-5">
+    <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Cinemachine camera bounds clip" class="clip lg:col-span-3"><source src="Cinemachine%20Present.webm" type="video/webm"></video>
+    <div class="space-y-3 leading-relaxed text-cream/85 lg:col-span-2">
+      <p>Built on <code>Cinemachine</code> with a 3D Confiner:</p>
+      <ul class="list-disc space-y-1.5 pl-5 marker:text-gold">
+        <li>The camera stays inside the level bounds, with the volume visible in the clip</li>
+        <li>Custom points of interest pull focus to the intended angles</li>
+        <li>It still follows the player while framing those points</li>
+      </ul>
+    </div>
+  </div>
+
+<!--  <h3 class="h4">Key systems</h3>-->
+<!--  <ul class="list-disc space-y-3 pl-5 leading-relaxed marker:text-gold">-->
+<!--    <li><b class="text-gold">Lobby and sessions:</b> live room list, handles dropped connections.</li>-->
+<!--    <li><b class="text-gold">Layered animation:</b> upper-body overrides on top of base locomotion, no sprite sheets.</li>-->
+<!--    <li><b class="text-gold">Bounded camera:</b> Cinemachine follows players and respects world edges.</li>-->
+<!--    <li><b class="text-gold">One click system:</b> a single <code>IInteractable</code> handles doors, loot and NPCs.</li>-->
+<!--  </ul>-->
+
+<!--  <details class="group mt-8 border-t border-sage/30 pt-4">-->
+<!--    <summary class="flex cursor-pointer items-center gap-2 font-semibold text-gold"><span class="chev inline-block transition-transform">▸</span>Full technical breakdown</summary>-->
+<!--    <ul class="mt-4 max-w-prose list-disc space-y-3 pl-5 leading-relaxed marker:text-gold">-->
+<!--      <li><b class="text-gold">Lobby &amp; session management:</b> multiplayer lobby with live room listing, connection state tracking, and graceful handling of dropped connections or failed joins.</li>-->
+<!--      <li><b class="text-gold">Layered 2D procedural animation:</b> a procedural character controller blends base locomotion with upper-body state overrides, so players can carry boxes overhead or grab and climb ladders without rigid sprite sheets.</li>-->
+<!--      <li><b class="text-gold">Bounded dynamic camera:</b> custom Cinemachine workflow with 2D Confiners. It tracks players, interpolates through scripted focal points to frame hazards, and shifts focus during dialogue while respecting world boundary colliders.</li>-->
+<!--      <li><b class="text-gold">Unified point-and-click interaction:</b> a modular <code>IInteractable</code> interface handles screen-space clicks for ground loot, dialogue NPCs, doors and buttons through one decoupled raycast system.</li>-->
+<!--    </ul>-->
+<!--  </details>-->
 </article>
 
 <!-- ================= PROJECT 2 ================= -->
-<article class="mb-14 rounded-xl border border-sage/30 bg-brown p-5 shadow-lg shadow-black/30 sm:p-8">
-  <h3 class="text-center text-2xl font-bold text-cream">2.5D Action Roguelike (3D World on a 2D Plane)</h3>
-  <div class="mt-3 flex flex-wrap justify-center gap-2 text-xs">
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Unity</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">C#</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">3D UI</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">AI &amp; Context Steering</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Audio Architecture</span>
+<article id="roguelike" class="card">
+  <h2 class="text-2xl font-bold text-cream sm:text-3xl">Blit Gish</h2>
+  <p class="mt-1 text-cream/75">Roguelike as an exploration drone of the oceans</p>
+  <div class="mt-3 flex flex-wrap gap-2"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">3D UI</span><span class="chip">Context steering AI</span><span class="chip">Audio architecture</span></div>
+
+  <div class="mt-6 grid items-start gap-5 lg:grid-cols-5">
+    <figure class="lg:col-span-3">
+      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Context steering enemy pathfinding clip" class="clip"><source src="Inventory(1).webm" type="video/webm"></video>
+      <figcaption class="cap">Tooltip sways slightly on mouse movement and updates only when the item changes for better performance.</figcaption>
+    </figure>
+    <ul class="list-disc space-y-3 pl-5 leading-relaxed marker:text-gold lg:col-span-2">
+      <li><b class="text-gold">Enemy behavior:</b> crabs calculate ballistic jumps; snakes bend their spine along their path by <code>Blender Rigging</code>.</li>
+      <li><b class="text-gold">Equipment merging:</b> set attributes of weapons, armor and gadgets scale with <code>AnimationCurve</code> levels.</li>
+      <li><b class="text-gold">Audio editor tool:</b> SFX's with variations are easily compiled, and automatically varied on pitch with choice to play in 3D space or as a UI SFX.</li>
+    </ul>
   </div>
-  <p class="measure mx-auto mt-4 leading-relaxed text-cream/90"></p>
 
-    <div class="mt-10 max-w-2xl">
-      <h4 class="text-xl font-semibold uppercase tracking-widest text-cream">Title screen and Beastiary</h4>
-      <p class="mt-2 text-sm leading-relaxed text-cream/80">
-        Slot-based inventory built on Unity UI event triggers for drag-and-drop item movement, stacking, and quick swapping. Tooltips dynamically pull stats from ScriptableObjects and clamp their pivot offsets to avoid clipping off-screen.
-      </p>
-    </div>
-
-
-<div class="mt-3 space-y-3">
-    <figure class="max-w-2xl">
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Main%20Menu.webm" type="video/webm">
-      </video>
+  <div class="mt-9 grid gap-6 sm:grid-cols-2">
+    <figure>
+      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Title screen and bestiary clip" class="clip"><source src="Main%20Menu.webm" type="video/webm"></video>
+      <figcaption class="cap">Created viewmodels for creatures in the bestiary. <br /><br />The info about discovered creatures is saved as unity's <code>PlayerPrefs</code></figcaption>
     </figure>
-
-    <div class="mt-10 max-w-2xl">
-      <h4 class="text-xl font-semibold uppercase tracking-widest text-cream">Backpack UI - Tooltip, Drag'n Drop</h4>
-      <p class="mt-2 text-sm leading-relaxed text-cream/80">
-        Tooltip fades in smoothly, has subtle cursor sway, updating only on item changes and not each frame, bloating performance.
-      </p>
-    </div>
-
-    <figure class="max-w-2xl">
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Inventory(1).webm" type="video/webm">
-      </video>
-    </figure>
-
-    <div class="mt-10 max-w-2xl">
-      <h4 class="text-xl font-semibold uppercase tracking-widest text-cream">Pathfinding</h4>
-      <p class="mt-2 text-sm leading-relaxed text-cream/80">
-        Context steering architecture combining directional interest and danger vectors. Enemies evaluate surrounding colliders and neighboring units in real time, producing organic group flanking and avoiding the rigid corner-snagging of standard grid navigation.
-      </p>
-    </div>
-
-    <figure class="max-w-2xl">
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Context%20Steering.webm" type="video/webm">
-      </video>
+    <figure>
+      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Backpack inventory clip" class="clip"><source src="Context%20Steering.webm" type="video/webm"></video>
+      <figcaption class="cap">Context steering gives smooth obstacle avoidance and group flanking, with no corner snagging.</figcaption>
     </figure>
   </div>
 
-  <h4 class="mt-10 text-sm font-semibold uppercase tracking-widest text-gold">Systems Engineered</h4>
-  <ul class="measure mt-3 list-disc space-y-4 pl-5 leading-relaxed marker:text-gold">
-    <li><strong class="text-gold">3D World-Space Merge Inventory &amp; Auto-Tooltips:</strong> Created a tactile inventory rendered in 3D world space with responsive drag-and-drop UI interaction. Players merge identical items to upgrade tiers, backed by a dynamic tooltip system that automatically parses item types, resolves matching UI icons, and displays live stats.</li>
-    <li><strong class="text-gold">Modular Equipment &amp; Curve-Based Stat Scaling:</strong> Architected an inheritance/composition item base supporting weapons, armor, grappling hooks, and deployables. Item stats scale dynamically via <code class="rounded bg-ink px-1 text-sm text-gold">AnimationCurve</code> level multipliers. The base class automates player mesh spawning and fallback hit SFX, while child classes execute unique active abilities.</li>
-    <li><strong class="text-gold">Automated Audio Mixer Wrapper:</strong> Built an audio management system on top of Unity's Audio Mixer that eliminates manual sound array setup per asset. Invoking a sound ID automatically selects randomized clip variations, applies subtle pitch modulation, and exposes separate API calls for 2D UI audio vs. 3D spatialized audio (panning in headphones relative to player distance).</li>
-    <li><strong class="text-gold">Enemy AI (Context Steering &amp; Ballistic Trajectories):</strong>
-      <ul class="mt-2 list-[circle] space-y-2 pl-5">
-        <li>Implemented Context Steering across flying and ground enemies for smooth obstacle avoidance around 2.5D grid blocks.</li>
-        <li><strong class="text-gold">Crab AI:</strong> Calculates ballistic jump trajectories when approaching gaps, ledges, or elevated player positions to leap across terrain and land melee hits.</li>
-        <li><strong class="text-gold">Snake AI:</strong> Glides from screen edge to edge, dynamically curving its skeletal mesh spine along its movement vector.</li>
-      </ul>
-    </li>
-  </ul>
+<!--  <details class="group mt-8 border-t border-sage/30 pt-4">-->
+<!--    <summary class="flex cursor-pointer items-center gap-2 font-semibold text-gold"><span class="chev inline-block transition-transform">▸</span>Full technical breakdown</summary>-->
+<!--    <ul class="mt-4 max-w-prose list-disc space-y-3 pl-5 leading-relaxed marker:text-gold">-->
+<!--      <li><b class="text-gold">3D world-space merge inventory and auto-tooltips:</b> tactile inventory rendered in 3D space with drag-and-drop. Identical items merge to upgrade tiers. Tooltips parse item types, resolve matching icons and show live stats, clamping their pivot to stay on screen.</li>-->
+<!--      <li><b class="text-gold">Modular equipment and curve-based scaling:</b> an inheritance/composition item base for weapons, armor, grappling hooks and deployables. Stats scale through <code>AnimationCurve</code> level multipliers. The base class spawns the player mesh and fallback hit SFX; child classes implement unique abilities.</li>-->
+<!--      <li><b class="text-gold">Automated audio mixer wrapper:</b> built on Unity's Audio Mixer, with no manual sound arrays per asset. A sound ID picks a random variation, applies pitch modulation, and exposes separate calls for 2D UI audio and 3D spatialized audio.</li>-->
+<!--      <li><b class="text-gold">Enemy AI:</b> context steering for flying and ground enemies around 2.5D grid blocks. <b>Crab:</b> calculates ballistic jump trajectories across gaps and ledges to land melee hits. <b>Snake:</b> glides edge to edge, curving its skeletal spine along its movement vector.</li>-->
+<!--    </ul>-->
+<!--  </details>-->
 </article>
 
 <!-- ================= PROJECT 3 ================= -->
-<article class="mb-14 rounded-xl border border-sage/30 bg-brown p-5 shadow-lg shadow-black/30 sm:p-8">
-  <h3 class="text-center text-2xl font-bold text-cream">4-Player First-Person Physics Sandbox</h3>
-  <div class="mt-3 flex flex-wrap justify-center gap-2 text-xs">
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Unity</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">C#</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">3D Multiplayer</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Rigidbody Networking</span>
-    <span class="rounded-full border border-gold/40 bg-gold/10 px-2.5 py-1 text-gold">Humanoid Rig &amp; Blender</span>
-  </div>
-  <p class="measure mx-auto mt-4 leading-relaxed text-cream/90">A 4-player 3D first-person co-op prototype focused on networked physics manipulation, custom-rigged character customization, and reactive NPCs.</p>
+<article id="sandbox" class="card">
+  <h2 class="text-2xl font-bold text-cream sm:text-3xl">Stronghold Asylum</h2>
+  <p class="mt-1 text-cream/75">4 player Co-op game where you take care of a psych ward set in the medieval fortress</p>
+  <div class="mt-3 flex flex-wrap gap-2"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">3D multiplayer</span><span class="chip">Rigidbody networking</span><span class="chip">Humanoid rig and Blender</span></div>
 
-  <div class="mt-8 space-y-8">
-    <figure class="max-w-2xl">
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Bridge%20View.webm" type="video/webm">
-      </video>
-      <figcaption class="mt-2 text-sm leading-snug text-cream/90"><span class="mr-2 font-semibold text-gold">Clip 1 of 2</span>Zero-latency networked Rigidbody pickup and throwing, plus lobby skin swapping.</figcaption>
+  <div class="mt-6 grid gap-6 sm:grid-cols-2">
+    <figure>
+      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Networked physics pickup clip" class="clip"><source src="Bridge%20View.webm" type="video/webm"></video>
+      <figcaption class="cap"><b>Networked pickup and throwing,</b> plus lobby skin swapping. No input delay.</figcaption>
     </figure>
-    <figure class="max-w-2xl">
-      <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain shadow-md shadow-black/40">
-        <source src="Castle(1).webm" type="video/webm">
-      </video>
-      <figcaption class="mt-2 text-sm leading-snug text-cream/90"><span class="mr-2 font-semibold text-gold">Clip 2 of 2</span>Leaf-blower physics tool and reactive NPC ragdolls and movement.</figcaption>
+    <figure>
+      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Leaf blower and ragdoll NPC clip" class="clip"><source src="Castle(1).webm" type="video/webm"></video>
+      <figcaption class="cap"><b>Leaf-blower physics tool</b> and reactive NPC ragdolls.</figcaption>
     </figure>
   </div>
 
-  <h4 class="mt-10 text-sm font-semibold uppercase tracking-widest text-gold">Systems Engineered</h4>
-  <ul class="measure mt-3 list-disc space-y-4 pl-5 leading-relaxed marker:text-gold">
-    <li><strong class="text-gold">Zero-Latency Networked Physics Pickup:</strong> Implemented first-person <code class="rounded bg-ink px-1 text-sm text-gold">Rigidbody</code> grabbing with dynamic client ownership transfer. Distributing authority to the interacting client eliminates input delay when holding, throwing, or colliding objects across a 4-player session.</li>
-    <li><strong class="text-gold">Networked Skin Swapping &amp; Humanoid Retargeting:</strong> Modeled and rigged custom 3D character skins in Blender configured for Unity's Humanoid Avatar pipeline. Built a multiplayer lobby skin selector that syncs chosen character meshes across clients while retargeting a single shared animation controller.</li>
-    <li><strong class="text-gold">Physics Tools &amp; Reactive NPC Sandbox:</strong> Built interactive physics gadgets (such as a directional force leaf-blower) and wandering AI states designed to react physically to player-driven chaos and environmental forces.</li>
+  <ul class="mt-7 list-disc space-y-3 pl-5 leading-relaxed marker:text-gold">
+    <li><b class="text-gold">Zero-latency physics pickup:</b> ownership of a grabbed <code>Rigidbody</code> moves to the interacting client, so holding and throwing feel instant across 4 players.</li>
+    <li><b class="text-gold">Skin swapping:</b> custom characters modeled and rigged in Blender for Unity's Humanoid pipeline, synced across clients on one shared animation controller.</li>
+    <li><b class="text-gold">Physics tools and reactive NPCs:</b> a directional force leaf-blower and wandering AI that reacts physically to player chaos.</li>
   </ul>
 </article>
-
-<!--&lt;!&ndash; ================= STANDALONE MECHANICS ================= &ndash;&gt;-->
-<!--<h2 class="mb-6 text-sm font-semibold uppercase tracking-widest text-gold">Technical Breakdowns</h2>-->
-<!--<section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">-->
-<!--  <figure class="rounded-xl border border-sage/30 bg-brown p-3 shadow-lg shadow-black/30">-->
-<!--    <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain">-->
-<!--      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">-->
-<!--    </video>-->
-<!--    <figcaption class="mt-2 text-sm leading-snug text-cream/90"><strong class="text-gold">Camera bounds.</strong> Scene View vs. Game View showing the Cinemachine Confiner clamping the camera to world limits.</figcaption>-->
-<!--  </figure>-->
-<!--  <figure class="rounded-xl border border-sage/30 bg-brown p-3 shadow-lg shadow-black/30">-->
-<!--    <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain">-->
-<!--      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">-->
-<!--    </video>-->
-<!--    <figcaption class="mt-2 text-sm leading-snug text-cream/90"><strong class="text-gold">3D inventory.</strong> World-space drag-and-drop with item merging and live tooltips.</figcaption>-->
-<!--  </figure>-->
-<!--  <figure class="rounded-xl border border-sage/30 bg-brown p-3 shadow-lg shadow-black/30">-->
-<!--    <video data-clip autoplay loop muted playsinline class="aspect-video w-full rounded-lg bg-ink object-contain">-->
-<!--      <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">-->
-<!--    </video>-->
-<!--    <figcaption class="mt-2 text-sm leading-snug text-cream/90"><strong class="text-gold">AI pathfinding.</strong> Gizmo view of Context Steering weights and obstacle avoidance.</figcaption>-->
-<!--  </figure>-->
-<!--</section>-->
 
 </main>
 
 <footer class="border-t border-gold/30 py-6 text-center text-sm text-sage">
   <span class="select-all font-mono text-cream">hoistalekrew@gmail.com</span>
-  <button type="button" onclick="copyEmail('hoistalekrew@gmail.com', this)" class="ml-2 text-xs font-semibold text-gold hover:text-cream">
-    Copy
-  </button>
+  <button type="button" onclick="copyEmail('hoistalekrew@gmail.com', this)" class="ml-2 text-xs font-semibold text-gold hover:text-cream">Copy</button>
 </footer>
 
 <!-- ================= LIGHTBOX ================= -->
-<dialog id="lightbox" class="w-[92vw] max-w-6xl rounded-lg bg-black p-0">
+<dialog id="lightbox" class="w-[94vw] max-w-6xl rounded-lg bg-black p-0">
+  <button type="button" onclick="box.close()" class="absolute right-2 top-2 z-10 rounded-md bg-ink/80 px-3 py-1 text-sm font-semibold text-cream hover:bg-brown" aria-label="Close video">Close ✕</button>
   <video id="lightbox-video" controls autoplay loop playsinline class="w-full"></video>
 </dialog>
 
 <script>
   const box = document.getElementById('lightbox');
   const big = document.getElementById('lightbox-video');
-  document.querySelectorAll('video[data-clip]').forEach(v => {
-    v.addEventListener('click', () => {
-      big.src = v.currentSrc || v.querySelector('source').src;
-      box.showModal();
-    });
+  const clips = document.querySelectorAll('video[data-clip]');
+
+  clips.forEach(v => {
+    const open = () => { big.src = v.currentSrc || v.querySelector('source').src; box.showModal(); };
+    v.addEventListener('click', open);
+    v.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
   });
   box.addEventListener('click', e => { if (e.target === box) box.close(); });
   box.addEventListener('close', () => { big.pause(); big.removeAttribute('src'); });
 
+  // Play clips only while on screen: smoother scrolling, less CPU/bandwidth
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting) en.target.play().catch(() => {}); else en.target.pause();
+    }), { threshold: 0.25 });
+    clips.forEach(v => io.observe(v));
+  }
+
   function copyEmail(email, btn) {
-    navigator.clipboard.writeText(email).then(() => {
-      const original = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = original; }, 1800);
-    });
+    const done = () => { const t = btn.textContent; btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = t, 1800); };
+    (navigator.clipboard ? navigator.clipboard.writeText(email) : Promise.reject()).then(done).catch(() => prompt('Copy this email:', email));
   }
 </script>
 </body>

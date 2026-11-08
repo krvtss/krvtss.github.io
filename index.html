@@ -186,24 +186,29 @@ tailwind.config={theme:{extend:{colors:{ink:'#2F2A27',brown:'#4C4541',gold:'#F2C
 <!-- ================= PROJECT 3 ================= -->
 <article id="sandbox" class="card">
   <h2 class="text-2xl font-bold text-cream sm:text-3xl">Stronghold Asylum</h2>
-  <p class="mt-1 text-cream/75">4 player Co-op game where you take care of a psych ward set in the medieval fortress</p>
-  <div class="mt-3 flex flex-wrap gap-2"><span class="chip">Unity</span><span class="chip">C#</span><span class="chip">3D multiplayer</span><span class="chip">Rigidbody networking</span><span class="chip">Humanoid rig and Blender</span></div>
+  <p class="mt-1 text-cream/75">4-player co-op game where you run a chaotic psych ward inside a medieval fortress.</p>
+
+  <div class="mt-3 flex flex-wrap gap-2">
+    <span class="chip">Unity</span>
+    <span class="chip">C#</span>
+    <span class="chip">3D Multiplayer</span>
+    <span class="chip">Procedural Animation</span>
+    <span class="chip">VFX & Shaders</span>
+    <span class="chip">Blender</span>
+  </div>
 
   <div class="mt-6 grid gap-6 sm:grid-cols-2">
     <figure>
-      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Networked physics pickup clip" class="clip"><source src="Bridge%20View.webm" type="video/webm"></video>
-      <figcaption class="cap"><b>Networked pickup and throwing,</b> plus lobby skin swapping. No input delay.</figcaption>
+      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Environment wind and smoke clip 1" class="clip"><source src="Bridge%20View.webm" type="video/webm"></video>
     </figure>
     <figure>
-      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Leaf blower and ragdoll NPC clip" class="clip"><source src="Castle(1).webm" type="video/webm"></video>
-      <figcaption class="cap"><b>Leaf-blower physics tool</b> and reactive NPC ragdolls.</figcaption>
+      <video data-clip autoplay loop muted playsinline preload="metadata" tabindex="0" aria-label="Environment wind and smoke clip 2" class="clip"><source src="Castle(1).webm" type="video/webm"></video>
     </figure>
   </div>
 
   <ul class="mt-7 list-disc space-y-3 pl-5 leading-relaxed marker:text-gold">
-    <li><b class="text-gold">Zero-latency physics pickup:</b> ownership of a grabbed <code>Rigidbody</code> moves to the interacting client, so holding and throwing feel instant across 4 players.</li>
-    <li><b class="text-gold">Skin swapping:</b> custom characters modeled and rigged in Blender for Unity's Humanoid pipeline, synced across clients on one shared animation controller.</li>
-    <li><b class="text-gold">Physics tools and reactive NPCs:</b> a directional force leaf-blower and wandering AI that reacts physically to player chaos.</li>
+    <li><b class="text-gold">Procedural tree sway:</b> script which sways rigged tree mesh according to procedurally generated wind forces</li>
+      <li><b class="text-gold">Simple smoke:</b> Implemented texture panning smoke to give the scene a better sense of depth.</li>
   </ul>
 </article>
 
